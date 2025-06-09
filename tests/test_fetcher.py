@@ -1,4 +1,4 @@
-\"""Tests for the fetcher module.
+"""Tests for the fetcher module.
 
 This module contains tests for the ChannelFetcher class.
 """
