@@ -1,4 +1,4 @@
-\"""Tests for the store module.
+"""Tests for the store module.
 
 This module contains tests for the PostStore class, focusing on deduplication logic.
 """

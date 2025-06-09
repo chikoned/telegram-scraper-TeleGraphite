@@ -161,6 +161,30 @@ class ChannelFetcher:
 
         return all_posts
 
+    async def scan_history(
+        self,
+        channel: str,
+        keyword: str,
+        max_messages: int = 100,
+        delay: float = 1.0,
+    ) -> List[Dict]:
+        """Scan old messages in a channel for a keyword with rate limiting."""
+        posts: List[Dict] = []
+        count = 0
+
+        async for message in self.client.iter_messages(
+            channel, search=keyword, limit=max_messages
+        ):
+            post = await self._process_message(channel, message)
+            if post:
+                posts.append(post)
+            count += 1
+            if count >= max_messages:
+                break
+            await asyncio.sleep(delay)
+
+        return posts
+
     async def fetch_and_save(self) -> bool:
         channels = self._load_channels()
         all_posts = []
